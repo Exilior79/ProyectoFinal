@@ -8,8 +8,12 @@ namespace ProyectoFinal.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        
+        [Display(Name ="Nombre del producto: ")]
         public string nombreProducto { get; set; }
+        
         public int cantidad { get; set; }
+        
         public double precio { get; set; }
 
 
