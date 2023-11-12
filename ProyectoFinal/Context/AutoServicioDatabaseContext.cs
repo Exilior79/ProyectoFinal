@@ -17,5 +17,7 @@ namespace ProyectoFinal.Context
 
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Producto> Productos { get; set; }
+ 
+    public DbSet<CarritoDeCompra>? CarritoDeCompra_1 { get; set; }
     }
 }
