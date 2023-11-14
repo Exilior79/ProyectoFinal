@@ -11,14 +11,14 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div>
-                <label for="ClienteId">Cliente:</label>
-                @Html.DropDownList("ClienteId", (SelectList)ViewBag.Clientes, "Seleccione un cliente")
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
             </div>
-            
-            <div>
-                <label for="ProductosIds">Productos:</label>
-                @Html.DropDownList("ProductosIds", (SelectList)ViewBag.Productos, "Seleccione un producto")
+            <div class="form-group">
+                <label asp-for="ProductoId" class="control-label"></label>
+                <select asp-for="ProductoId" class ="form-control" asp-items="ViewBag.ProductoId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

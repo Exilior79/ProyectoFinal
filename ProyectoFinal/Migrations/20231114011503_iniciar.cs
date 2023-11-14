@@ -5,7 +5,7 @@
 namespace ProyectoFinal.Migrations
 {
     /// <inheritdoc />
-    public partial class Iniciar : Migration
+    public partial class iniciar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,6 +16,7 @@ namespace ProyectoFinal.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    nombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     dni = table.Column<int>(type: "int", nullable: false),
                     mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     contraseña = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -39,11 +40,50 @@ namespace ProyectoFinal.Migrations
                 {
                     table.PrimaryKey("PK_Productos", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "CarritoDeCompra_1",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarritoDeCompra_1", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarritoDeCompra_1_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarritoDeCompra_1_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarritoDeCompra_1_ClienteId",
+                table: "CarritoDeCompra_1",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarritoDeCompra_1_ProductoId",
+                table: "CarritoDeCompra_1",
+                column: "ProductoId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CarritoDeCompra_1");
+
             migrationBuilder.DropTable(
                 name: "Clientes");
 

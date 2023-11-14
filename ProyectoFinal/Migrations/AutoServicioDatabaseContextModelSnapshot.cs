@@ -32,10 +32,14 @@ namespace ProyectoFinal.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductosIds")
+                    b.Property<int>("ProductoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProductoId");
 
                     b.ToTable("CarritoDeCompra_1");
                 });
@@ -56,6 +60,10 @@ namespace ProyectoFinal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("mail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombreCompleto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -85,6 +93,25 @@ namespace ProyectoFinal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Productos");
+                });
+
+            modelBuilder.Entity("ProyectoFinal.Models.CarritoDeCompra", b =>
+                {
+                    b.HasOne("ProyectoFinal.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoFinal.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Producto");
                 });
 #pragma warning restore 612, 618
         }

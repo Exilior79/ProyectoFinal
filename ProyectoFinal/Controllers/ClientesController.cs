@@ -48,12 +48,6 @@ namespace ProyectoFinal.Controllers
         // GET: Clientes/Create
         public IActionResult Create()
         {
-            var clientes = _context.Clientes.ToList();
-            var productos = _context.Productos.ToList();
-
-            ViewBag.Clientes = new SelectList(clientes, "Id", "Nombre");
-            ViewBag.Productos = new SelectList(productos, "Id", "Nombre");
-
             return View();
         }
 
@@ -62,7 +56,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,dni,mail,contraseña")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("Id,nombreCompleto,dni,mail,contraseña")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +88,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,dni,mail,contraseña")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nombreCompleto,dni,mail,contraseña")] Cliente cliente)
         {
             if (id != cliente.Id)
             {
@@ -164,16 +158,6 @@ namespace ProyectoFinal.Controllers
         private bool ClienteExists(int id)
         {
           return (_context.Clientes?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-
-        public Cliente ObtenerPorId(int? id)
-        {
-            if (id == null)
-            {
-                return null;
-            }
-
-            return _context.Clientes.FirstOrDefault(c => c.Id == id);
         }
     }
 }

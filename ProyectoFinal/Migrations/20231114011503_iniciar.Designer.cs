@@ -11,8 +11,8 @@ using ProyectoFinal.Context;
 namespace ProyectoFinal.Migrations
 {
     [DbContext(typeof(AutoServicioDatabaseContext))]
-    [Migration("20231110214701_2")]
-    partial class _2
+    [Migration("20231114011503_iniciar")]
+    partial class iniciar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,10 @@ namespace ProyectoFinal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("mail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombreCompleto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -22,9 +22,8 @@ namespace ProyectoFinal.Controllers
         // GET: CarritoDeCompras
         public async Task<IActionResult> Index()
         {
-              return _context.CarritoDeCompra_1 != null ? 
-                          View(await _context.CarritoDeCompra_1.ToListAsync()) :
-                          Problem("Entity set 'AutoServicioDatabaseContext.CarritoDeCompra_1'  is null.");
+            var autoServicioDatabaseContext = _context.CarritoDeCompra_1.Include(c => c.Cliente).Include(c => c.Producto);
+            return View(await autoServicioDatabaseContext.ToListAsync());
         }
 
         // GET: CarritoDeCompras/Details/5
@@ -36,6 +35,8 @@ namespace ProyectoFinal.Controllers
             }
 
             var carritoDeCompra = await _context.CarritoDeCompra_1
+                .Include(c => c.Cliente)
+                .Include(c => c.Producto)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (carritoDeCompra == null)
             {
@@ -48,18 +49,8 @@ namespace ProyectoFinal.Controllers
         // GET: CarritoDeCompras/Create
         public IActionResult Create()
         {
-            // Obtener la lista de clientes y productos desde la base de datos
-            var clientes = _context.Clientes.ToList();
-            var productos = _context.Productos.ToList();
-
-            // Agregar mensajes de registro
-            Console.WriteLine($"Número de clientes: {clientes.Count}");
-            Console.WriteLine($"Número de productos: {productos.Count}");
-
-            // Pasa los datos a la vista
-            ViewBag.Clientes = new SelectList(clientes, "Id", "dni");
-            ViewBag.Productos = new SelectList(productos, "Id", "nombreProducto");
-
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto");
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto");
             return View();
         }
 
@@ -68,7 +59,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClienteId,ProductosIds")] CarritoDeCompra carritoDeCompra)
+        public async Task<IActionResult> Create([Bind("Id,ClienteId,ProductoId")] CarritoDeCompra carritoDeCompra)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +67,8 @@ namespace ProyectoFinal.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 
@@ -92,6 +85,8 @@ namespace ProyectoFinal.Controllers
             {
                 return NotFound();
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 
@@ -100,7 +95,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClienteId,ProductosIds")] CarritoDeCompra carritoDeCompra)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClienteId,ProductoId")] CarritoDeCompra carritoDeCompra)
         {
             if (id != carritoDeCompra.Id)
             {
@@ -127,6 +122,8 @@ namespace ProyectoFinal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 
@@ -139,6 +136,8 @@ namespace ProyectoFinal.Controllers
             }
 
             var carritoDeCompra = await _context.CarritoDeCompra_1
+                .Include(c => c.Cliente)
+                .Include(c => c.Producto)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (carritoDeCompra == null)
             {
@@ -171,10 +170,5 @@ namespace ProyectoFinal.Controllers
         {
           return (_context.CarritoDeCompra_1?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-
-        /*private Cliente ObtenerClientePorId(int clienteId)
-        {
-            return _context.Clientes.FirstOrDefault(c => c.Id == clienteId);
-        }*/
     }
 }
