@@ -6,6 +6,7 @@ namespace ProyectoFinal.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Nro de Factura")]
         public int Id { get; set; }
         
         [Display(Name = "Cliente: ")]

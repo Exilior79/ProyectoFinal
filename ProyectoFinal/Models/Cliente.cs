@@ -9,6 +9,8 @@ namespace ProyectoFinal.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Display(Name = "Nombre Completo:")]
         [Required(ErrorMessage = "Ingrese un nombre valido")]
         public String nombreCompleto { get; set; }
         [Display(Name = "Dni del Cliente: ")]
