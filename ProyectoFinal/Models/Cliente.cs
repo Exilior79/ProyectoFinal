@@ -12,20 +12,19 @@ namespace ProyectoFinal.Models
 
         [Display(Name = "Nombre Completo:")]
         [Required(ErrorMessage = "Ingrese un nombre valido")]
-        public String nombreCompleto { get; set; }
+        public String NombreCompleto { get; set; }
         [Display(Name = "Dni del Cliente: ")]
         [Required(ErrorMessage = "Ingrese un dni")]
-        public int dni { get; set; }
+        public int Dni { get; set; }
         [Display(Name = "Mail: ")]
         [EmailAddress]
         [Required(ErrorMessage = "Ingrese un mail valido")]
-        public String mail { get; set; }
-        [Display(Name = "Contraseña: ")]
-        [PasswordPropertyText]
-        [MinLength(4)]
-        [Required(ErrorMessage = "Ingresa una contaseña, minimo 4 caracteres")]
-        public String contraseña { get; set; }
+        public String Mail { get; set; }
         
+        [Display(Name = "Fecha de creacion: ")]
+        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+
+
 
     }
 }

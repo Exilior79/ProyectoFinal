@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -16,10 +17,10 @@ namespace ProyectoFinal.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    dni = table.Column<int>(type: "int", nullable: false),
-                    mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    contraseña = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Dni = table.Column<int>(type: "int", nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,9 +33,8 @@ namespace ProyectoFinal.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombreProducto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    cantidad = table.Column<int>(type: "int", nullable: false),
-                    precio = table.Column<double>(type: "float", nullable: false)
+                    NombreProducto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,7 +48,11 @@ namespace ProyectoFinal.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    MetodoDePago = table.Column<int>(type: "int", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

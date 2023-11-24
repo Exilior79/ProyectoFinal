@@ -49,8 +49,8 @@ namespace ProyectoFinal.Controllers
         // GET: CarritoDeCompras/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto");
-            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto");
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto");
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "NombreProducto");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClienteId,ProductoId")] CarritoDeCompra carritoDeCompra)
+        public async Task<IActionResult> Create([Bind("Id,ClienteId,ProductoId,Cantidad,MetodoDePago,Total,FechaCreacion")] CarritoDeCompra carritoDeCompra)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace ProyectoFinal.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
-            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "NombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 
@@ -85,8 +85,8 @@ namespace ProyectoFinal.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
-            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "NombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 
@@ -95,7 +95,7 @@ namespace ProyectoFinal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClienteId,ProductoId")] CarritoDeCompra carritoDeCompra)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClienteId,ProductoId,Cantidad,MetodoDePago,Total,FechaCreacion")] CarritoDeCompra carritoDeCompra)
         {
             if (id != carritoDeCompra.Id)
             {
@@ -122,8 +122,8 @@ namespace ProyectoFinal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "nombreCompleto", carritoDeCompra.ClienteId);
-            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "nombreProducto", carritoDeCompra.ProductoId);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "NombreCompleto", carritoDeCompra.ClienteId);
+            ViewData["ProductoId"] = new SelectList(_context.Productos, "Id", "NombreProducto", carritoDeCompra.ProductoId);
             return View(carritoDeCompra);
         }
 

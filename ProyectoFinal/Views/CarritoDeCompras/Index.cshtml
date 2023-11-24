@@ -13,13 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Cliente)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetodoDePago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
             </th>
             <th></th>
         </tr>
@@ -28,13 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.Cliente.NombreCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cliente.nombreCompleto)
+                @Html.DisplayFor(modelItem => item.Producto.NombreProducto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Producto.nombreProducto)
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetodoDePago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
