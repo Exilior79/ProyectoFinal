@@ -15,4 +15,20 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: lightgoldenrodyellow;
+  /*background-image: url("/fondo2.jpg");*/
 }
+
+.miDivIzquierdo {
+    float: right;
+    width: 150px;
+    height: 80px;
+    font-weight: bold;
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
