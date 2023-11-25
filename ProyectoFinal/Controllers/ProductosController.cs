@@ -58,6 +58,14 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NombreProducto,Precio")] Producto producto)
         {
+
+            var productoExistente = _context.Productos.FirstOrDefault(p => p.NombreProducto == producto.NombreProducto);
+            if (productoExistente != null)
+            {
+                ModelState.AddModelError("NombreProducto", "Este producto ya existe.");
+                return View(producto);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(producto);
@@ -90,6 +98,14 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NombreProducto,Precio")] Producto producto)
         {
+
+            var productoExistente = _context.Productos.FirstOrDefault(p => p.NombreProducto == producto.NombreProducto);
+            if (productoExistente != null)
+            {
+                ModelState.AddModelError("NombreProducto", "Este producto ya existe.");
+                return View(producto);
+            }
+
             if (id != producto.Id)
             {
                 return NotFound();

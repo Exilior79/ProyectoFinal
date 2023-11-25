@@ -3,12 +3,23 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    double total = 0;
+}
 
-<h1>Index</h1>
+<h1>Compras</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nueva Compra</a>
 </p>
+
+<form asp-controller="CarritoDeCompras" asp-action="Index">
+    <p>
+        Buscar: <input type="text" name="buscar" class="form-text" />
+        <input type="submit" value="Buscar" class="btn btn-sm btn-dark"/>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +39,10 @@
                 @Html.DisplayNameFor(model => model.Total)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
+                <a asp-action="Index" asp-route-filtro="@ViewData["FiltroFecha"]">
+                    @Html.DisplayNameFor(model => model.FechaCreacion)
+                </a>
+                
             </th>
             <th></th>
         </tr>
@@ -55,11 +69,34 @@
                 @Html.DisplayFor(modelItem => item.FechaCreacion)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
             </td>
         </tr>
+            total = total + item.Total;
 }
+
+       
+      
+        
     </tbody>
 </table>
+<div class="miDivIzquierdo">
+  Total =  @total
+</div>
+
+<style>
+    .miDivIzquierdo {
+        float: right;
+        width: 150px;
+        height: 80px;
+        font-weight: bold;
+        border: 2px solid black;
+        padding: 10px;
+        text-align:center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }</style>

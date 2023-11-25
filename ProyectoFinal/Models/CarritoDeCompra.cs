@@ -35,8 +35,10 @@ namespace ProyectoFinal.Models
         [Required(ErrorMessage = "Seleccione un metodo de pago")]
         public MetodoDePago MetodoDePago { get; set; }
 
-        public double Total { get; set; } 
+        [Display(Name = "Total: ")]
+        public double Total { get; set; }
 
+        [Display(Name = "Fecha: ")]
         public DateTime FechaCreacion { get; set; }
 
         public CarritoDeCompra()

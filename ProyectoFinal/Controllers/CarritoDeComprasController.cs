@@ -20,10 +20,31 @@ namespace ProyectoFinal.Controllers
         }
 
         // GET: CarritoDeCompras
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, string filtro)
         {
             var autoServicioDatabaseContext = _context.CarritoDeCompra_1.Include(c => c.Cliente).Include(c => c.Producto);
-            return View(await autoServicioDatabaseContext.ToListAsync());
+
+            var usuarios = from c in autoServicioDatabaseContext select c;
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                usuarios = usuarios.Where(s => s.Cliente.NombreCompleto.Contains(buscar));
+            }
+
+            ViewData["FiltroFecha"] = filtro == "FechaAscendente" ? "FechaDescendente" : "FechaAscendente";
+
+            switch (filtro)
+            {
+                case "FechaDescendente":
+                    usuarios = usuarios.OrderByDescending(usuarios => usuarios.FechaCreacion);
+                    break;
+                case "FechaAscendente":
+                    usuarios = usuarios.OrderBy(usuarios => usuarios.FechaCreacion);
+                    break;
+            }
+
+            //return View(await autoServicioDatabaseContext.ToListAsync());
+            return View(await usuarios.ToListAsync());
         }
 
         // GET: CarritoDeCompras/Details/5
@@ -61,6 +82,9 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ClienteId,ProductoId,Cantidad,MetodoDePago,Total,FechaCreacion")] CarritoDeCompra carritoDeCompra)
         {
+            var ProductoSeleccionado = _context.Productos.FirstOrDefault(p => p.Id == carritoDeCompra.ProductoId);
+            carritoDeCompra.Total = ProductoSeleccionado.Precio * carritoDeCompra.Cantidad;
+
             if (ModelState.IsValid)
             {
                 _context.Add(carritoDeCompra);

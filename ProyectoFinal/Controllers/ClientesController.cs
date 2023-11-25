@@ -58,6 +58,13 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NombreCompleto,Dni,Mail,FechaCreacion")] Cliente cliente)
         {
+            var correoExistente = _context.Clientes.FirstOrDefault(c => c.Mail == cliente.Mail);
+            if (correoExistente != null)
+            {
+                ModelState.AddModelError("Mail", "Este correo electrónico ya está en uso.");
+                return View(cliente);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(cliente);
@@ -90,6 +97,14 @@ namespace ProyectoFinal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NombreCompleto,Dni,Mail,FechaCreacion")] Cliente cliente)
         {
+
+            var correoExistente = _context.Clientes.FirstOrDefault(c => c.Mail == cliente.Mail);
+            if (correoExistente != null)
+            {
+                ModelState.AddModelError("Mail", "Este correo electrónico ya está en uso.");
+                return View(cliente);
+            }
+
             if (id != cliente.Id)
             {
                 return NotFound();
