@@ -14,6 +14,7 @@ namespace ProyectoFinal.Models
         
         [Required(ErrorMessage = "Debe agregar un precio")]
         [Display(Name = "Precio por kilo: ")]
+        [Range(1, double.MaxValue, ErrorMessage = "Ingrese un precio válido")]
         public double Precio { get; set; }
 
 

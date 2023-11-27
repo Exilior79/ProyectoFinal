@@ -44,6 +44,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 500px; /* Esto establece la altura al 100% del viewport height */
-    margin: 0; /* Asegúrate de que no haya margen adicional que afecte la centración */
+    height: 500px;
+    margin: 0;
 }

@@ -14,16 +14,16 @@ namespace ProyectoFinal.Models
         
         [Display(Name = "Cliente: ")]
         [Required(ErrorMessage = "Seleccione un cliente")]
-        public int ClienteId { get; set; } // Identificador del cliente
+        public int ClienteId { get; set; }
 
-        
+        [Display(Name = "Cliente: ")]
         public Cliente ?Cliente { get; set; }
 
         [Display(Name = "Producto: ")]
         [Required(ErrorMessage = "Seleccione un producto")]
-        public int ProductoId { get; set; } 
-        
-        
+        public int ProductoId { get; set; }
+
+        [Display(Name = "Producto: ")]
         public Producto ?Producto { get; set; }
 
         [Range(1, 20)]
@@ -35,7 +35,7 @@ namespace ProyectoFinal.Models
         [Required(ErrorMessage = "Seleccione un metodo de pago")]
         public MetodoDePago MetodoDePago { get; set; }
 
-        [Display(Name = "Total: ")]
+        [Display(Name = "Total de la compra: ")]
         public double Total { get; set; }
 
         [Display(Name = "Fecha: ")]
@@ -45,7 +45,7 @@ namespace ProyectoFinal.Models
         {
            
 
-                //Total = Cantidad * Producto.Precio;
+                
                 FechaCreacion = DateTime.Now;
             
 

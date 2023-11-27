@@ -15,6 +15,7 @@ namespace ProyectoFinal.Models
         public String NombreCompleto { get; set; }
         [Display(Name = "Dni del Cliente: ")]
         [Required(ErrorMessage = "Ingrese un dni")]
+        [Range(5000000, 100000000, ErrorMessage ="Ingrese un dni válido")]
         public int Dni { get; set; }
         [Display(Name = "Mail: ")]
         [EmailAddress]
